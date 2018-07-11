@@ -21,7 +21,7 @@ public class ListListingHolder extends ListingHolder{
     public ImageView programImage;
 
     @BindView(R.id.title_textview)
-    public TextView titleText;
+    public TextView titleText_now;
 
 
     public ListListingHolder(View itemView){

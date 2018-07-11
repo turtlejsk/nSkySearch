@@ -21,13 +21,13 @@
 
     <TextView
         android:id="@+id/title_textview_past"
-        android:layout_toRightOf="@+id/spacer"
+        android:layout_toRightOf="@+id/spacer_past"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:textColor= "#95a5a6" />
+        android:textColor="#95a5a6" />
 
 </RelativeLayout>
 

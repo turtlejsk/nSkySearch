@@ -30,6 +30,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ListingAdapterContract.Model, ListingAdapterContract.View, StickyRecyclerHeadersAdapter<HeaderHolder> {
 
 
@@ -43,34 +45,35 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int ITEM_VIEW_TYPE_NOW = 1;
     private static final int ITEM_VIEW_TYPE_PAST = 2;
     private static final int ITEM_VIEW_TYPE_MAX = 3;
-
+    private static int position = 0;
 
     public ListListingAdapter(Context context){
         this.context = context;
-
-
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //if() 문으로 시간대별로 다른 뷰 생성
-        int type = items.get(position).getType();
+
         View view;
         RecyclerView.ViewHolder result =null;
-        switch (type){
+        Log.d(TAG, "onCreateViewHolder::position : "+parent.getChildCount());
+        Log.d(TAG, "onCreateViewHolder::type : "+viewType);
+        switch (viewType){
+            case ITEM_VIEW_TYPE_FUTURE:
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_future, parent,false);
+                result = new FutureListingHolder(view);
+                break;
             case ITEM_VIEW_TYPE_NOW:
                view = LayoutInflater.from(context).inflate(R.layout.list_item_now, parent,false);
                result =  new ListListingHolder(view);
                break;
             case ITEM_VIEW_TYPE_PAST:
-                view = LayoutInflater.from(context).inflate(R.layout.list_item_now, parent,false);
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_past, parent,false);
                 result =  new PastListingHolder(view);
                 break;
-            case ITEM_VIEW_TYPE_FUTURE:
-                view = LayoutInflater.from(context).inflate(R.layout.list_item_now, parent,false);
-                result = new FutureListingHolder(view);
-                break;
+
         }
 
         Log.d("ListListingAdapter","onCreateViewHolder");
@@ -83,17 +86,13 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         *  현재 제목+프로그램 사진
         * */
         int type = items.get(position).getType();
-
+        Log.d(TAG, "onBindViewHolder:: position : "+position);
+        Log.d(TAG, "onBindViewHolder::type : "+type);
         switch (type) {
-            case ITEM_VIEW_TYPE_NOW :
-                ListListingHolder holder_now = (ListListingHolder) holder;
-                holder_now.titleText.setText(getItem(position).getTitle());
-                break;
-
             case ITEM_VIEW_TYPE_FUTURE :
                 final FutureListingHolder holder_future = (FutureListingHolder) holder;
-                holder_future.titleText.setText(getItem(position).getTitle());
-                holder_future.timeText.setText(getItem(position).getStTime().substring(11,16));
+                holder_future.titleText_future.setText(getItem(position).getTitle());
+                holder_future.timeText_future.setText(getItem(position).getStTime().substring(11,16));
                 holder_future.reserveButton.setOnClickListener(new Button.OnClickListener(){
                     @Override
                     public void onClick(View v) {
@@ -109,10 +108,18 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
                 });
                 break;
+
+            case ITEM_VIEW_TYPE_NOW :
+                ListListingHolder holder_now = (ListListingHolder) holder;
+                holder_now.titleText.setText(getItem(position).getTitle());
+                break;
+
             case ITEM_VIEW_TYPE_PAST:
                 PastListingHolder holder_past = (PastListingHolder)holder;
-                holder_past.titleText.setText(getItem(position).getTitle());
-                holder_past.timeText.setText(getItem(position).getStTime().substring(11,16));
+                holder_past.titleText_past.setText(getItem(position).getTitle());
+                holder_past.timeText_past.setText(getItem(position).getStTime().substring(11,16));
+                break;
+
         }
 
         /**
@@ -124,6 +131,11 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
          * 미래에는 제목+시간+예약버튼
          */
 
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        return getItem(position).getType();
     }
 
     @Override

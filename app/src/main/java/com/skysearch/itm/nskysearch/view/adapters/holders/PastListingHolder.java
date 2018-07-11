@@ -12,14 +12,11 @@ import butterknife.ButterKnife;
 
 public class PastListingHolder extends ListingHolder{
 
-    private Context context;
-    private OnItemClickListener onItemClickListener;
-
     @BindView(R.id.time_textview_past)
-    public TextView timeText;
+    public TextView timeText_past;
 
     @BindView(R.id.title_textview_past)
-    public TextView titleText;
+    public TextView titleText_past;
 
     public PastListingHolder(View itemView) {
         super(itemView);

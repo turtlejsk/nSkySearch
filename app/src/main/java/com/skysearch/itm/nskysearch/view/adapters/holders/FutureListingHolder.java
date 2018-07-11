@@ -20,13 +20,14 @@ public class FutureListingHolder  extends ListingHolder {
     private Context context;
     private OnItemClickListener onItemClickListener;
 
+    @BindView(R.id.reserve_button)
     public Button reserveButton;
 
     @BindView(R.id.time_textview_future)
-    public TextView timeText;
+    public TextView timeText_future;
 
     @BindView(R.id.title_textview_future)
-    public TextView titleText;
+    public TextView titleText_future;
 
 
     public FutureListingHolder(View itemView)  {
