@@ -11,6 +11,25 @@ public class DTO_SCHD {
     String stTime;
     String enTime;
 
+    int type;
+    boolean isReserved;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
+    }
+
     public int getSchdId() {
         return schdId;
     }

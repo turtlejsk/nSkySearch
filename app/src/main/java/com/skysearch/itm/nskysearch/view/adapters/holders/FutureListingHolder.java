@@ -22,13 +22,10 @@ public class FutureListingHolder  extends ListingHolder {
 
     public Button reserveButton;
 
-    @BindView(R.id.prog_image)
-    public ImageView programImage;
+    @BindView(R.id.time_textview_future)
+    public TextView timeText;
 
-//    @BindView(R.id.time_textview)
-//    public TextView timeText;
-
-    @BindView(R.id.title_textview)
+    @BindView(R.id.title_textview_future)
     public TextView titleText;
 
 

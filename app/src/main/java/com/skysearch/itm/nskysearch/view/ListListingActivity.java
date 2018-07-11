@@ -10,7 +10,10 @@ import android.util.Log;
 import com.skysearch.itm.nskysearch.Presenter.MainContract;
 import com.skysearch.itm.nskysearch.Presenter.Presenter;
 import com.skysearch.itm.nskysearch.R;
+import com.skysearch.itm.nskysearch.view.adapters.DividerDecoration;
 import com.skysearch.itm.nskysearch.view.adapters.ListListingAdapter;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,25 +25,43 @@ public class ListListingActivity extends Activity implements MainContract.View{
 
     private ListListingAdapter listingAdapter;
     private Presenter presenter;
+    private StickyRecyclerHeadersDecoration stickyHeaderDecoration;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("listing","start");
+        //뷰 바인딩
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
-        System.out.println(recyclerView);
+
+        //정의
         listingAdapter = new ListListingAdapter(this);
         recyclerView.setAdapter(listingAdapter);
-
         presenter = new Presenter();
+        stickyHeaderDecoration = new StickyRecyclerHeadersDecoration(listingAdapter);
+
+        listingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+
+            }
+        });
+        //MVP
         presenter.attachView(this);
         presenter.setListingAdapterModel(listingAdapter);
         presenter.setListingAdapterView(listingAdapter);
 
+        //레이아웃
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //헤더
+        recyclerView.addItemDecoration(stickyHeaderDecoration);
+        recyclerView.addItemDecoration(new DividerDecoration(this));
+        //데이터 로드
         presenter.loadItems(this, false);
+
+
     }
 
     @Override
