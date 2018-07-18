@@ -68,8 +68,8 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
                 ArrayList<DTO_SCHD> channelList = new ArrayList<>();
 
                 Log.d("Test", response.body().toString());
-
                 JsonArray mList = response.body();
+
                 for (JsonElement item : mList) {
                     JsonObject itemJson = item.getAsJsonObject();
 
@@ -84,8 +84,6 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
                     targetChannel.setEnTime(DateParser.setLocale(itemJson.get("EN_TIME").getAsString()));
 
                     channelList.add(targetChannel);
-
-
                 }
                 adapterModel.addItems(channelList);
 
@@ -95,7 +93,7 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                Log.e("Presenter","getData::Error", t);
             }
         });
 

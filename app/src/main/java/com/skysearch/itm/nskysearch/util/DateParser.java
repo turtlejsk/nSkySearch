@@ -20,7 +20,7 @@ public class DateParser {
         }
 
         Calendar c = Calendar.getInstance();
-        String now = "2018-02-15T19:00:00.000Z";
+        String now = "2018-02-15T12:25:00.000Z";
         Date dateNow=null;
         try {
             dateNow = formatter.parse(now);
