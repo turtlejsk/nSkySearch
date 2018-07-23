@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -29,6 +30,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation "com.jakewharton:butterknife:8.6.0"
+    implementation 'com.github.mmin18:realtimeblurview:1.1.2'
+    implementation 'com.github.todou:appbarspring:1.0.6'
     annotationProcessor "com.jakewharton:butterknife-compiler:8.6.0"
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     testImplementation 'junit:junit:4.12'

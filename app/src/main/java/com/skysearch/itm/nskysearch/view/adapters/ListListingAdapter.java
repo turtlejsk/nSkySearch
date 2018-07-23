@@ -44,8 +44,6 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int ITEM_VIEW_TYPE_FUTURE = 0;
     private static final int ITEM_VIEW_TYPE_NOW = 1;
     private static final int ITEM_VIEW_TYPE_PAST = 2;
-    private static final int ITEM_VIEW_TYPE_MAX = 3;
-    private static int position = 0;
 
     public ListListingAdapter(Context context){
         this.context = context;
@@ -111,7 +109,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             case ITEM_VIEW_TYPE_NOW :
                 ListListingHolder holder_now = (ListListingHolder) holder;
-                holder_now.titleText.setText(getItem(position).getTitle());
+                holder_now.titleText_now.setText(getItem(position).getTitle());
                 break;
 
             case ITEM_VIEW_TYPE_PAST:
@@ -178,6 +176,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
         Log.d("ListListingAdapter","notifyAdapter");
     }
+
 
 
     @Override
