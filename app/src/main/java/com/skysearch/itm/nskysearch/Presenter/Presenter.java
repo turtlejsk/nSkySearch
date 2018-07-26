@@ -53,8 +53,8 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
     @Override
     public void loadItems(Context context, boolean isClear) {
         getData();
-
     }
+
 
     public void getData() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://211.211.54.158:3000/").addConverterFactory(GsonConverterFactory.create()).build();
@@ -101,7 +101,7 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
 
     @Override
     public void onItemClick(int position) {
-        DTO_SCHD item = adapterModel.getItem(position);
+        DTO_SCHD item = adapterModel.getListingItem(position);
         view.showToast(item.getTitle());
     }
 }

@@ -19,6 +19,6 @@ public interface ListingAdapterContract {
 
         void clearItem();
 
-        DTO_SCHD getItem(int position);
+        DTO_SCHD getListingItem(int position);
     }
 }
