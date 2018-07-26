@@ -76,7 +76,6 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
         listingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-
             }
         });
         recyclerView.setAdapter(listingAdapter);
