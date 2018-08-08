@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_listing"
         android:layout_width="match_parent"
-        android:layout_height="199dp"
+        android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -24,29 +24,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/imageViewCollapsing"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/channel_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/skylife"
-                    app:layout_collapseMode="parallax" />
+                    android:layout_height="match_parent"
+                    />
 
-                <Button
-                    android:id="@+id/btn_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SWITCH" />
-
+                <!--<android.support.v7.widget.Toolbar-->
+                    <!--android:id="@+id/toolbar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--app:layout_collapseMode="pin"-->
+                    <!--app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"-->
+                    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/channel_view">
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/tabItem_mbc"
@@ -67,19 +65,12 @@
                         android:text="tab_kbs" />
 
                 </android.support.design.widget.TabLayout>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
             </RelativeLayout>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

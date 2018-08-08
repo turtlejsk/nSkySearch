@@ -1,70 +1,52 @@
 package com.skysearch.itm.nskysearch.view;
 
-import android.app.Activity;
-
-import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.AppBarLayoutSpringBehavior;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.view.ActionMode;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.support.v7.widget.Toolbar;
 
-import com.github.mmin18.widget.RealtimeBlurView;
+import com.skysearch.itm.nskysearch.Presenter.ChannelContract;
+import com.skysearch.itm.nskysearch.Presenter.ChannelPresenter;
 import com.skysearch.itm.nskysearch.Presenter.MainContract;
 import com.skysearch.itm.nskysearch.Presenter.Presenter;
 import com.skysearch.itm.nskysearch.R;
+import com.skysearch.itm.nskysearch.data.ExpandChildItem;
+import com.skysearch.itm.nskysearch.data.ExpandParentItem;
 import com.skysearch.itm.nskysearch.view.adapters.DividerDecoration;
+import com.skysearch.itm.nskysearch.view.adapters.ExpandRecyclerAdapter;
 import com.skysearch.itm.nskysearch.view.adapters.GridListingAdapter;
 import com.skysearch.itm.nskysearch.view.adapters.ListListingAdapter;
 import com.skysearch.itm.nskysearch.view.adapters.ListListingViewPagerAdapter;
-import com.skysearch.itm.nskysearch.view.adapters.fragments.LLViewPagerFragment;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-import com.tmall.ultraviewpager.UltraViewPager;
-import com.tmall.ultraviewpager.UltraViewPagerAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListListingActivity extends AppCompatActivity implements MainContract.View{
+public class ListListingActivity extends AppCompatActivity implements MainContract.View, ChannelContract.View{
 //
-//    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @BindView(R.id.channel_view)
+    RecyclerView channel_view;
     @BindView(R.id.tabs)
     TabLayout tabLayout;
-    @BindView(R.id.btn_switch)
-    Button btn_switch;
     @BindView(R.id.appbar_listing)
     AppBarLayout appBar;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;
 
 
-    private ListListingAdapter listingAdapter;
-    private GridListingAdapter glisingAdapter;
-    private Presenter mPresenter;
-    private StickyRecyclerHeadersDecoration stickyHeaderDecoration;
+    ExpandRecyclerAdapter expandAdapter;
     //sharedpreference?
+    public Presenter mPresenter;
+    public ChannelPresenter cPresenter;
     public static boolean viewType = false;
     private int progress;
     @Override
@@ -76,12 +58,33 @@ public class ListListingActivity extends AppCompatActivity implements MainContra
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mPresenter = new Presenter();
+        cPresenter = new ChannelPresenter();
+
         ListListingViewPagerAdapter adapter = new ListListingViewPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    // test
+        ExpandChildItem item1 = new ExpandChildItem(1,"beef");
+        ExpandChildItem item2 = new ExpandChildItem(2,"cheese");
+        ExpandChildItem item3 = new ExpandChildItem(3,"salsa");
+        ExpandChildItem item4 = new ExpandChildItem(4,"tortilla");
 
+        ExpandParentItem parent1 = new ExpandParentItem(Arrays.asList(item1,item2,item3));
+        parent1.CH_CTGR="Title1";
+        ExpandParentItem parent2 = new ExpandParentItem(Arrays.asList(item2,item3,item4));
+        parent2.CH_CTGR= "Title2";
+        List<ExpandParentItem> parents = Arrays.asList(parent1,parent2);
+        expandAdapter = new ExpandRecyclerAdapter(this,parents);
+
+        channel_view.setAdapter(expandAdapter);
+        channel_view.setLayoutManager(new LinearLayoutManager(this));
+        cPresenter.setListingAdapterModel(expandAdapter);
+        cPresenter.setListingAdapterView(expandAdapter);
+        cPresenter.attachView(this);
+        cPresenter.loadItems(this,false);
+/*
         btn_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,25 +95,38 @@ public class ListListingActivity extends AppCompatActivity implements MainContra
             }
         });
 
-        //viewPager.setAdapter(new Ada);
-        //mPresenter = new Presenter();
         //viewType에 따른 레이아웃 전환
         if(viewType){
             //정의
-            //initListView();
+            initListView();
         }else{
-            //initGridView();
+            initGridView();
         }
-        //데이터 로드
-        //mPresenter.loadItems(this, false);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //AppBar
+*/
 
     }
 
+
+    public void initChannelView(){
+        ExpandChildItem item1 = new ExpandChildItem(1,"beef");
+        ExpandChildItem item2 = new ExpandChildItem(2,"cheese");
+        ExpandChildItem item3 = new ExpandChildItem(3,"salsa");
+        ExpandChildItem item4 = new ExpandChildItem(4,"tortilla");
+
+        ExpandParentItem parent1 = new ExpandParentItem(Arrays.asList(item1,item2,item3));
+        parent1.CH_CTGR="Title1";
+        ExpandParentItem parent2 = new ExpandParentItem(Arrays.asList(item2,item3,item4));
+        parent2.CH_CTGR= "Title2";
+        List<ExpandParentItem> parents = Arrays.asList(parent1,parent2);
+        expandAdapter = new ExpandRecyclerAdapter(this,parents);
+        channel_view.setAdapter(expandAdapter);
+    }
+
+    @Override
+    public void showToast(String title) {
+
+    }
+/*
     public void initGridView(){
         progress= 79;
         glisingAdapter = new GridListingAdapter(this, progress);
@@ -153,11 +169,6 @@ public class ListListingActivity extends AppCompatActivity implements MainContra
         recyclerView.addItemDecoration(stickyHeaderDecoration);
         recyclerView.addItemDecoration(new DividerDecoration(this));
     }
+*/
 
-
-
-    @Override
-    public void showToast(String title) {
-
-    }
 }

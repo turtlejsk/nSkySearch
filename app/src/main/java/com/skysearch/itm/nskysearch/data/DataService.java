@@ -32,9 +32,12 @@ public interface DataService {
     Call<JsonArray> getChannelByChNum(@Query("CH_NUM") int CH_NUM);
 
     @GET("ch/")
-    Call<JsonArray> getChannelByChCtgr(@Query("CH_CTGR") int CH_CTGR);
+    Call<JsonArray> getChannelByChCtgr(@Query("CH_CTGR") String CH_CTGR);
 
     @GET("ch/")
     Call<JsonArray> getChannel();
+
+    @GET("ch_ctgr/")
+    Call<JsonArray> getChCTGR();
 
 }
