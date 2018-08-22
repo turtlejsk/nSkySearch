@@ -58,18 +58,18 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("Fragment","onCreate");
-        Log.i("Fragment","binded");
+        Log.i("LLViewPagerFragment","onCreate");
+        Log.i("LLViewPagerFragment","binded");
 
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        Log.i("Fragment","onCreateView");
+        Log.i("LLViewPagerFragment","onCreateView");
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.pager_child, container,false);
-        Log.i("Fragment","rootView : "+rootView.toString());
+        Log.i("LLViewPagerFragment","rootView : "+rootView.toString());
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        Log.i("Fragment","recyclerView : "+recyclerView.toString());
+        Log.i("LLViewPagerFragment","recyclerView : "+recyclerView.toString());
         listingAdapter = new ListListingAdapter(rootView.getContext());
 
         stickyHeaderDecoration = new StickyRecyclerHeadersDecoration(listingAdapter);
@@ -93,7 +93,7 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-        Log.i("Fragment","onViewCreated");
+        Log.i("LLViewPagerFragment","onViewCreated");
 
     }
 

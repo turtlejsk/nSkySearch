@@ -82,6 +82,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         *  현재 제목+프로그램 사진
         * */
         int type = items.get(position).getType();
+        Log.d(TAG, "onBindViewHolder: "+holder.toString());
         Log.d(TAG, "onBindViewHolder:: position : "+position);
         Log.d(TAG, "onBindViewHolder::type : "+type);
         switch (type) {

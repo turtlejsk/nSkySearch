@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.ListListingActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_list">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view2"
+            android:id="@+id/list_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />

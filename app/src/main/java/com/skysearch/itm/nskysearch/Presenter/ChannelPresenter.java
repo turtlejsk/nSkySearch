@@ -28,7 +28,7 @@ public class ChannelPresenter implements ChannelContract.Presenter, OnItemClickL
     private ChannelContract.View view;
     private ChannelAdapterContract.Model adapterModel;
     private ChannelAdapterContract.View adapterView;
-
+    public final String TAG = "ChannelPresenter";
     @Override
     public void attachView(ChannelContract.View view) {
         this.view= view;
@@ -52,7 +52,8 @@ public class ChannelPresenter implements ChannelContract.Presenter, OnItemClickL
 
     @Override
     public void loadItems(Context context, boolean isClear) {
-
+        getChCTGR();
+        Log.i(TAG, "loadItems");
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ChannelPresenter implements ChannelContract.Presenter, OnItemClickL
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://211.211.54.158:3000/").addConverterFactory(GsonConverterFactory.create()).build();
         DataService service = retrofit.create(DataService.class);
 
-        Call<JsonArray> req = service.getChannel();
+        Call<JsonArray> req = service.getChCTGR();
         req.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {

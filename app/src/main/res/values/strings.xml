@@ -16,4 +16,8 @@
     <string name="fade_header">Fade header</string>
     <string name="draw_behind_header">Draw behind header</string>
     <string name="fast_scroll">Fast scroll</string>
+    <string name="selection_home">Home</string>
+    <string name="selection_daily_box_office">Daily</string>
+    <string name="selection_weekly_box_office">Weekly</string>
+
 </resources>

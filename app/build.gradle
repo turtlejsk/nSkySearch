@@ -24,7 +24,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.squareup:otto:1.3.8'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
@@ -33,6 +33,8 @@ dependencies {
     implementation "com.bignerdranch.android:expandablerecyclerview:2.1.1"
     implementation 'com.github.mmin18:realtimeblurview:1.1.2'
     implementation 'com.github.todou:appbarspring:1.0.6'
+    implementation 'com.aurelhubert:ahbottomnavigation:2.0.4'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     annotationProcessor "com.jakewharton:butterknife-compiler:8.6.0"
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     testImplementation 'junit:junit:4.12'
