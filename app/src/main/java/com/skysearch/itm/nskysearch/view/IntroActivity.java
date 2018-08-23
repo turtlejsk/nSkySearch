@@ -50,10 +50,10 @@ public class IntroActivity extends AppCompatActivity{
 
         pagerAdapter = new BottomBarAdapter(getSupportFragmentManager());
         viewPager.setPagingEnabled(false);
-        LLViewPagerFragment llViewPagerFragment1 = LLViewPagerFragment.newInstance(0);
+        LLViewPagerFragment llViewPagerFragment1 = LLViewPagerFragment.newInstance();
         ContainerFragment containerFragment = ContainerFragment.newInstance();
-        CTGRFragment ctgrFragment= CTGRFragment.newInstance(1);
-        LLViewPagerFragment llViewPagerFragment3 = LLViewPagerFragment.newInstance(4);
+        CTGRFragment ctgrFragment= CTGRFragment.newInstance();
+        LLViewPagerFragment llViewPagerFragment3 = LLViewPagerFragment.newInstance();
         ContainerFragment containerFragment2 = ContainerFragment.newInstance();
 
         pagerAdapter.addFragments(llViewPagerFragment1);
