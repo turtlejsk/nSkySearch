@@ -22,6 +22,7 @@ public class BottomBarAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem: "+position);
+        getRegisteredFragment(position);
         return fragments.get(position);
     }
 

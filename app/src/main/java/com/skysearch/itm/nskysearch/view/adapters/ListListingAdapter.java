@@ -55,8 +55,8 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         View view;
         RecyclerView.ViewHolder result =null;
-        Log.d(TAG, "onCreateViewHolder::position : "+parent.getChildCount());
-        Log.d(TAG, "onCreateViewHolder::type : "+viewType);
+//        Log.d(TAG, "onCreateViewHolder::position : "+parent.getChildCount());
+//        Log.d(TAG, "onCreateViewHolder::type : "+viewType);
         switch (viewType){
             case ITEM_VIEW_TYPE_FUTURE:
                 view = LayoutInflater.from(context).inflate(R.layout.list_item_future, parent,false);
@@ -72,7 +72,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 break;
 
         }
-        Log.d("ListListingAdapter","onCreateViewHolder");
+   //     Log.d("ListListingAdapter","onCreateViewHolder");
         return result;
     }
 
@@ -82,9 +82,9 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         *  현재 제목+프로그램 사진
         * */
         int type = items.get(position).getType();
-        Log.d(TAG, "onBindViewHolder: "+holder.toString());
-        Log.d(TAG, "onBindViewHolder:: position : "+position);
-        Log.d(TAG, "onBindViewHolder::type : "+type);
+//        Log.d(TAG, "onBindViewHolder: "+holder.toString());
+//        Log.d(TAG, "onBindViewHolder:: position : "+position);
+//        Log.d(TAG, "onBindViewHolder::type : "+type);
         switch (type) {
             case ITEM_VIEW_TYPE_FUTURE :
                 final FutureListingHolder holder_future = (FutureListingHolder) holder;

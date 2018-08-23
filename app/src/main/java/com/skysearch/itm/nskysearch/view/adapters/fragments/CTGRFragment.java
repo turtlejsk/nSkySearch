@@ -25,7 +25,7 @@ public class CTGRFragment extends Fragment implements ChannelContract.View {
     RecyclerView recyclerView;
     ChannelPresenter channelPresenter;
     CTGRAdapter ctgrAdapter;
-    public final String TAG = "CTGRFragment";
+    private final String TAG = "CTGRFragment";
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public static CTGRFragment newInstance(int sectionNumber) {
@@ -51,7 +51,7 @@ public class CTGRFragment extends Fragment implements ChannelContract.View {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.pager_ctgr, container,false);
         Log.i(TAG,"rootView : "+rootView.toString());
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_ctgr);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         Log.i(TAG,"recyclerView : "+recyclerView.toString());
         recyclerView.setAdapter(ctgrAdapter);
         ctgrAdapter = new CTGRAdapter(rootView.getContext());
