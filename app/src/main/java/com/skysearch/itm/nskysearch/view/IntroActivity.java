@@ -57,10 +57,10 @@ public class IntroActivity extends AppCompatActivity{
         ContainerFragment containerFragment2 = ContainerFragment.newInstance();
 
         pagerAdapter.addFragments(llViewPagerFragment1);
-        pagerAdapter.addFragments(containerFragment2);
         pagerAdapter.addFragments(ctgrFragment);
-        pagerAdapter.addFragments(containerFragment);
         pagerAdapter.addFragments(llViewPagerFragment3);
+        pagerAdapter.addFragments(containerFragment2);
+        pagerAdapter.addFragments(containerFragment);
 
         Log.i(TAG, "onCreate: "+ pagerAdapter.getCount());
 //

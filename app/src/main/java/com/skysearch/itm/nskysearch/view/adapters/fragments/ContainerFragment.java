@@ -34,7 +34,7 @@ public class ContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.child_ctgr_fragment,container,false);
-       // frame = (FrameLayout)rootView.findViewById(R.id.container_ctgr);
+        frame = (FrameLayout)rootView.findViewById(R.id.container_ctgr);
 
         return rootView;
     }
@@ -45,7 +45,8 @@ public class ContainerFragment extends Fragment {
         Log.i(TAG,"onViewCreated");
         CTGRFragment ctgrFragment = CTGRFragment.newInstance(0);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.container_ctgr, ctgrFragment).commit();
+        transaction.replace(R.id.container_ctgr, ctgrFragment).commit();
+
 
     }
 

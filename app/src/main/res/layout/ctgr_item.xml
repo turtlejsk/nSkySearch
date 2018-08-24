@@ -7,11 +7,12 @@
 
     <ImageView
         android:id="@+id/ctgr_image"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:src="@drawable/skylife"/>
 
     <TextView
         android:id="@+id/ctgr_name"

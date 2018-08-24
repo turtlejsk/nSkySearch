@@ -51,9 +51,8 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
     public void onBindViewHolder(@NonNull final CTGRViewHolder holder, int position) {
 
 
-        Log.i(TAG, "onBindViewHolder: "+holder.ctgr_image);
         holder.ctgr_name.setText(ctgrs.get(position).getCH_CTGR());
-        holder.ctgr_image.setImageResource(R.drawable.ic_launcher);
+        holder.ctgr_image.setImageResource(R.drawable.skylife);
         holder.ctgr_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
