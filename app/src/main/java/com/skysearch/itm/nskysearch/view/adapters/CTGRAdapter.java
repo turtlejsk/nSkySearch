@@ -1,10 +1,7 @@
 package com.skysearch.itm.nskysearch.view.adapters;
 
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,17 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skysearch.itm.nskysearch.R;
-import com.skysearch.itm.nskysearch.data.ExpandParentItem;
 import com.skysearch.itm.nskysearch.data.dto.DTO_CH;
 import com.skysearch.itm.nskysearch.data.dto.DTO_CH_CTGR;
 import com.skysearch.itm.nskysearch.listener.OnItemClickListener;
-import com.skysearch.itm.nskysearch.view.IntroActivity;
 import com.skysearch.itm.nskysearch.view.adapters.contracts.ChannelAdapterContract;
-import com.skysearch.itm.nskysearch.view.adapters.fragments.LLViewPagerFragment;
+import com.skysearch.itm.nskysearch.view.adapters.fragments.ContainerFragment;
 import com.skysearch.itm.nskysearch.view.adapters.holders.CTGRViewHolder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements ChannelAdapterContract.Model, ChannelAdapterContract.View{
     public Context context;
@@ -33,9 +27,11 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
     public final String TAG = "CTGRAdapter";
 
     public OnItemClickListener onItemClickListener;
+    public ContainerFragment.ChangeCategoryCallback mCallback;
 
-    public CTGRAdapter(Context context){
+    public CTGRAdapter(Context context, ContainerFragment.ChangeCategoryCallback callback){
         this.context = context;
+        this.mCallback = callback;
     }
 
     @NonNull
@@ -48,7 +44,7 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CTGRViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CTGRViewHolder holder, final int position) {
 
 
         holder.ctgr_name.setText(ctgrs.get(position).getCH_CTGR());
@@ -56,7 +52,24 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
         holder.ctgr_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String type = "";
 
+                switch (position) {
+                    case 0:
+                        type = "SAMPLE1";
+                        break;
+                    case 1:
+                        type = "SAMPLE2";
+                        break;
+                    default:
+                        type = "SAMPLE1";
+                        break;
+                }
+
+                ContainerFragment.CHANNEL_CATEGORY category;
+                category = ContainerFragment.CHANNEL_CATEGORY.valueOf(type);
+
+                mCallback.onSelectCategory(category);
 
             }
         });

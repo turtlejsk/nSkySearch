@@ -1,4 +1,4 @@
 package com.skysearch.itm.nskysearch.view.adapters.contracts;
 
-public interface ChannelAdapterContract {
+public interface SearchAdapterContract {
 }

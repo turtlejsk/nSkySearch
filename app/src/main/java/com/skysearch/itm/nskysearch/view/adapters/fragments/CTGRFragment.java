@@ -1,11 +1,10 @@
 package com.skysearch.itm.nskysearch.view.adapters.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,28 +12,25 @@ import android.view.ViewGroup;
 
 import com.skysearch.itm.nskysearch.Presenter.ChannelContract;
 import com.skysearch.itm.nskysearch.Presenter.ChannelPresenter;
-import com.skysearch.itm.nskysearch.Presenter.MainContract;
-import com.skysearch.itm.nskysearch.Presenter.Presenter;
 import com.skysearch.itm.nskysearch.R;
-import com.skysearch.itm.nskysearch.listener.OnItemClickListener;
 import com.skysearch.itm.nskysearch.view.adapters.CTGRAdapter;
-import com.skysearch.itm.nskysearch.view.adapters.ListListingAdapter;
-import com.skysearch.itm.nskysearch.view.adapters.contracts.ChannelAdapterContract;
 
+@SuppressLint("ValidFragment")
 public class CTGRFragment extends Fragment implements ChannelContract.View {
     RecyclerView recyclerView;
     ChannelPresenter channelPresenter;
     CTGRAdapter ctgrAdapter;
-    private final String TAG = "CTGRFragment";
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static CTGRFragment newInstance(int sectionNumber) {
-        CTGRFragment fragment = new CTGRFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        Log.d("Fragment","created");
-        return fragment;
+    ContainerFragment.ChangeCategoryCallback mClickCallback;
+
+    private final String TAG = "CTGRFragment";
+
+    public static CTGRFragment newInstance(ContainerFragment.ChangeCategoryCallback callback) {
+        return new CTGRFragment(callback);
+    }
+
+    public CTGRFragment(ContainerFragment.ChangeCategoryCallback callback) {
+        this.mClickCallback = callback;
     }
 
     @Override
@@ -54,7 +50,7 @@ public class CTGRFragment extends Fragment implements ChannelContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         Log.i(TAG,"recyclerView : "+recyclerView.toString());
         recyclerView.setAdapter(ctgrAdapter);
-        ctgrAdapter = new CTGRAdapter(rootView.getContext());
+        ctgrAdapter = new CTGRAdapter(rootView.getContext(), mClickCallback);
         channelPresenter = new ChannelPresenter();
         channelPresenter.setListingAdapterModel(ctgrAdapter);
         channelPresenter.setListingAdapterView(ctgrAdapter);

@@ -15,7 +15,7 @@ public class ContainerFragment extends Fragment {
 
 
     private final String TAG ="ContainerFragment";
-    public FrameLayout frame;
+    public FrameLayout mContainer;
 
     public static ContainerFragment newInstance() {
         ContainerFragment fragment = new ContainerFragment();
@@ -34,7 +34,8 @@ public class ContainerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.child_ctgr_fragment,container,false);
-        frame = (FrameLayout)rootView.findViewById(R.id.container_ctgr);
+
+        mContainer = rootView.findViewById(R.id.container_ctgr);
 
         return rootView;
     }
@@ -42,11 +43,33 @@ public class ContainerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-        Log.i(TAG,"onViewCreated");
-        CTGRFragment ctgrFragment = CTGRFragment.newInstance(0);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.container_ctgr, ctgrFragment).commit();
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(mContainer.getId(), new CTGRFragment(new ChangeCategoryCallback() {
+                    @Override
+                    public void onSelectCategory(CHANNEL_CATEGORY type) {
+                        // 타입에 따라 페이지를 바꿔주시면 됩니다.
 
+                        switch (type) {
+                            case SAMPLE1:
+                                getChildFragmentManager()
+                                        .beginTransaction()
+//                                .replace(mContainer.getId(),)
+                                        .commit();
+                                //
+                                break;
+
+                            case SAMPLE2:
+                                getChildFragmentManager()
+                                        .beginTransaction()
+//                                .replace(mContainer.getId(),)
+                                        .commit();
+                                //
+
+                        }
+                    }
+                }))
+                .commit();
 
     }
 

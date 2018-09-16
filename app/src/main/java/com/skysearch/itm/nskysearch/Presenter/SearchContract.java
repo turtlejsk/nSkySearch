@@ -1,4 +1,4 @@
 package com.skysearch.itm.nskysearch.Presenter;
 
-public class ChannelPresenter {
+public interface SearchContract {
 }
