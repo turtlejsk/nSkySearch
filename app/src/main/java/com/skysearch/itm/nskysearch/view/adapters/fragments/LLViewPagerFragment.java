@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.skysearch.itm.nskysearch.Presenter.MainContract;
@@ -25,31 +26,38 @@ import com.skysearch.itm.nskysearch.R;
 import com.skysearch.itm.nskysearch.view.adapters.DividerDecoration;
 import com.skysearch.itm.nskysearch.view.adapters.GridListingAdapter;
 import com.skysearch.itm.nskysearch.view.adapters.ListListingAdapter;
+import com.squareup.picasso.Picasso;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressLint("ValidFragment")
 public class LLViewPagerFragment extends Fragment implements MainContract.View{
 
 
-    //@BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
 
+    RecyclerView recyclerView;
+    public String num;
+    public String url;
     private ListListingAdapter listingAdapter;
-    private GridListingAdapter glisingAdapter;
-    private int progress;
     private Presenter mPresenter;
-    private static boolean viewType = true;
     private StickyRecyclerHeadersDecoration stickyHeaderDecoration;
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static LLViewPagerFragment newInstance(int sectionNumber) {
-        LLViewPagerFragment fragment = new LLViewPagerFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
+    public LLViewPagerFragment(){
+        super();
+    }
+
+    public LLViewPagerFragment(String num, String url){
+        super();
+        this.num = num;
+        this.url = url;
+    }
+
+    public static LLViewPagerFragment newInstance(String num, String url) {
+        LLViewPagerFragment fragment = new LLViewPagerFragment(num, url);
+
         Log.d("Fragment","created");
         return fragment;
     }
@@ -67,7 +75,11 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
         Log.i("LLViewPagerFragment","onCreateView");
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.pager_child, container,false);
         Log.i("LLViewPagerFragment","rootView : "+rootView.toString());
+        ImageView ch_image = (ImageView)rootView.findViewById(R.id.listing_image);
+        Picasso.get().load(url).into(ch_image);
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
+
+        recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         Log.i("LLViewPagerFragment","recyclerView : "+recyclerView.toString());
         listingAdapter = new ListListingAdapter(rootView.getContext());
@@ -76,6 +88,7 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
         listingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
+
             }
         });
         recyclerView.setAdapter(listingAdapter);
@@ -83,10 +96,11 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
         mPresenter.attachView(this);
         mPresenter.setListingAdapterView(listingAdapter);
         mPresenter.setListingAdapterModel(listingAdapter);
-
+        mPresenter.loadItems(rootView.getContext(),false, num);
         recyclerView.addItemDecoration(stickyHeaderDecoration);
+
         recyclerView.addItemDecoration(new DividerDecoration(rootView.getContext()));
-        mPresenter.loadItems(rootView.getContext(),false);
+
         return rootView;
     }
 
@@ -101,51 +115,6 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
-
-
-    public void initGridView(Context context){
-        progress= 79;
-        glisingAdapter = new GridListingAdapter(context, progress);
-        recyclerView.setAdapter(glisingAdapter);
-        glisingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-            }
-        });
-        mPresenter.attachView(this);
-        mPresenter.setListingAdapterModel(glisingAdapter);
-        mPresenter.setListingAdapterView(glisingAdapter);
-
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-    }
-
-    public void initListView(Context context){
-        //정의
-        listingAdapter = new ListListingAdapter(context);
-        recyclerView.setAdapter(listingAdapter);
-        stickyHeaderDecoration = new StickyRecyclerHeadersDecoration(listingAdapter);
-        listingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-
-            }
-        });
-        //MVP
-        mPresenter.attachView(this);
-        mPresenter.setListingAdapterModel(listingAdapter);
-        mPresenter.setListingAdapterView(listingAdapter);
-
-        //레이아웃
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-        //헤더
-        recyclerView.addItemDecoration(stickyHeaderDecoration);
-        recyclerView.addItemDecoration(new DividerDecoration(context));
-    }
-
 
     @Override
     public void showToast(String title) {

@@ -51,16 +51,16 @@ public class Presenter implements MainContract.Presenter, OnItemClickListener{
     }
 
     @Override
-    public void loadItems(Context context, boolean isClear) {
-        getData();
+    public void loadItems(Context context, boolean isClear, String num) {
+        getData(num);
     }
 
 
-    public void getData() {
+    public void getData(String num) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://211.211.54.158:3000/").addConverterFactory(GsonConverterFactory.create()).build();
         DataService service = retrofit.create(DataService.class);
-
-        Call<JsonArray> req = service.getScheduleByCHid(101);
+        int ch_num = Integer.parseInt(num);
+        Call<JsonArray> req = service.getScheduleByChnum(ch_num);
         req.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {

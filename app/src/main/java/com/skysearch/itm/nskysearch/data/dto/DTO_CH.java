@@ -6,6 +6,24 @@ public class DTO_CH {
     int CH_NUM;
     String CH_CTGR;
     String CH_DESCR;
+    int sRef;
+    String air;
+
+    public String getAir() {
+        return air;
+    }
+
+    public void setAir(String air) {
+        this.air = air;
+    }
+
+    public int getsRef() {
+        return sRef;
+    }
+
+    public void setsRef(int sRef) {
+        this.sRef = sRef;
+    }
 
     public int getCH_id() {
         return CH_id;

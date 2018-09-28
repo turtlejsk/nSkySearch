@@ -3,10 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/skylife_red</item>
-        <item name="colorPrimaryDark">@color/colorBottomNavigationInactive</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,8 +16,41 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="AppTheme.TranslucentNavigation" parent="AppTheme">
+    <style name="skyLifeCustomTheme" parent="AppTheme">
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="colorPrimary">@color/skylife_red</item>
+        <item name="colorPrimaryDark">@color/colorBottomNavigationInactive</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ContentsTextView"  parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textColor">@color/skylife_grey</item>
+        <item name="android:background">@color/pure_white</item>
+
+    </style>
+
+    <style name="TitleTextView"  parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/skylife_grey</item>
+        <item name="android:background">@color/pure_white</item>
 
     </style>
 </resources>

@@ -42,7 +42,7 @@ public class ListListingActivity extends AppCompatActivity implements MainContra
         ButterKnife.bind(this);
         mPresenter = new Presenter();
         initListView();
-        mPresenter.loadItems(this, false);
+        //mPresenter.loadItems(this, false);
     }
 
     @Override

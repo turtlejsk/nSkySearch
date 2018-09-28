@@ -26,6 +26,7 @@ public class CTGRPresenter implements CTGRContract.Presenter, OnItemClickListene
     private CTGRAdapterContract.Model adapterModel;
     private CTGRAdapterContract.View adapterView;
     public final String TAG = "ChannelPresenter";
+
     @Override
     public void attachView(CTGRContract.View view) {
         this.view= view;
@@ -92,42 +93,42 @@ public class CTGRPresenter implements CTGRContract.Presenter, OnItemClickListene
             }
         });
     }
-
-    public void getData(String ctgr){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://211.211.54.158:3000/").addConverterFactory(GsonConverterFactory.create()).build();
-        DataService service = retrofit.create(DataService.class);
-
-        Call<JsonArray> req = service.getChannelByChCtgr(ctgr);
-        req.enqueue(new Callback<JsonArray>() {
-            @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
-                ArrayList<DTO_CH> channelList = new ArrayList<>();
-
-                Log.d("Test", response.body().toString());
-                JsonArray mList = response.body();
-
-                for (JsonElement item : mList) {
-                    JsonObject itemJson = item.getAsJsonObject();
-
-                    DTO_CH targetChannel = new DTO_CH();
-                    targetChannel.setCH_id(itemJson.get("CH_id").getAsInt());
-                    targetChannel.setCH_NAME(itemJson.get("CH_NAME").getAsString());
-                    targetChannel.setCH_NUM(itemJson.get("CH_NUM").getAsInt());
-                    targetChannel.setCH_CTGR(itemJson.get("CH_CTGR").getAsString());
-                    targetChannel.setCH_DESCR(itemJson.get("CH_DESCR").getAsString());
-
-                    channelList.add(targetChannel);
-                }
-                //adapterModel.addItems(channelList);
-                Log.d("Presenter","getData");
-                adapterView.notifyAdapter();
-            }
-
-            @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.e("Presenter","getData::Error", t);
-            }
-        });
-    }
+//
+//    public void getData(String ctgr){
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://211.211.54.158:3000/").addConverterFactory(GsonConverterFactory.create()).build();
+//        DataService service = retrofit.create(DataService.class);
+//
+//        Call<JsonArray> req = service.getChannelByChCtgr(ctgr);
+//        req.enqueue(new Callback<JsonArray>() {
+//            @Override
+//            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+//
+//                ArrayList<DTO_CH> channelList = new ArrayList<>();
+//
+//                Log.d("Test", response.body().toString());
+//                JsonArray mList = response.body();
+//
+//                for (JsonElement item : mList) {
+//                    JsonObject itemJson = item.getAsJsonObject();
+//
+//                    DTO_CH targetChannel = new DTO_CH();
+//                    targetChannel.setCH_id(itemJson.get("CH_id").getAsInt());
+//                    targetChannel.setCH_NAME(itemJson.get("CH_NAME").getAsString());
+//                    targetChannel.setCH_NUM(itemJson.get("CH_NUM").getAsInt());
+//                    targetChannel.setCH_CTGR(itemJson.get("CH_CTGR").getAsString());
+//                    targetChannel.setCH_DESCR(itemJson.get("CH_DESCR").getAsString());
+//
+//                    channelList.add(targetChannel);
+//                }
+//                //adapterModel.addItems(channelList);
+//                Log.d("Presenter","getData");
+//                adapterView.notifyAdapter();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonArray> call, Throwable t) {
+//                Log.e("Presenter","getData::Error", t);
+//            }
+//        });
+//    }
 }

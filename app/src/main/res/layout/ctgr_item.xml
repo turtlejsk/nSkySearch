@@ -5,22 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ctgr_image"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/skylife"/>
-
     <TextView
         android:id="@+id/ctgr_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ctgr_image"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:text="test"
         android:textSize="28dp"
         tools:layout_editor_absoluteX="122dp"
         tools:layout_editor_absoluteY="0dp" />

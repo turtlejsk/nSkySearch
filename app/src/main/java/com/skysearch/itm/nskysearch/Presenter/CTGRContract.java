@@ -2,9 +2,9 @@ package com.skysearch.itm.nskysearch.Presenter;
 
 import android.content.Context;
 
-import com.skysearch.itm.nskysearch.view.adapters.contracts.ChannelAdapterContract;
+import com.skysearch.itm.nskysearch.view.adapters.contracts.CTGRAdapterContract;
 
-public interface ChannelContract {
+public interface CTGRContract {
 
     interface View {
 
@@ -15,9 +15,9 @@ public interface ChannelContract {
 
         void attachView(View view);
 
-        void setListingAdapterModel(ChannelAdapterContract.Model adapterModel);
+        void setListingAdapterModel(CTGRAdapterContract.Model adapterModel);
 
-        void setListingAdapterView(ChannelAdapterContract.View adapterView);
+        void setListingAdapterView(CTGRAdapterContract.View adapterView);
 
         void detachView();
 

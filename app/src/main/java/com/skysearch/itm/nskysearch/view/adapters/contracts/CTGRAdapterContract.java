@@ -6,7 +6,7 @@ import com.skysearch.itm.nskysearch.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
-public interface ChannelAdapterContract {
+public interface CTGRAdapterContract {
     interface View {
 
         void setOnClickListner(OnItemClickListener clickListner);
@@ -16,10 +16,9 @@ public interface ChannelAdapterContract {
 
     interface Model {
 
-        void addItems(ArrayList<DTO_CH> items);
         void addCTGRs(ArrayList<DTO_CH_CTGR> ctgrs);
         void clearItem();
 
-        DTO_CH getListingItem(int position);
+        DTO_CH_CTGR getListingItem(int position);
     }
 }

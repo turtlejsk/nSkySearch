@@ -35,7 +35,7 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ListingAdapterContract.Model, ListingAdapterContract.View, StickyRecyclerHeadersAdapter<HeaderHolder> {
 
-    public ArrayList<DTO_SCHD> items = new ArrayList<DTO_SCHD>();
+    public ArrayList<DTO_SCHD> items;
     public Context context;
     public OnItemClickListener onItemClickListener;
     private int[] mSectionIndices;
@@ -46,6 +46,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public ListListingAdapter(Context context){
         this.context = context;
+        items = new ArrayList<DTO_SCHD>();
     }
 
     @NonNull
@@ -160,7 +161,9 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        //return items != null ? items.size() : 0;
+        if(items==null){
+            return 0;
+        }
         return items.size();
     }
 

@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 
 public class CTGRViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.ctgr_image)
+   // @BindView(R.id.ctgr_image)
     public ImageView ctgr_image;
 
     @BindView(R.id.ctgr_name)

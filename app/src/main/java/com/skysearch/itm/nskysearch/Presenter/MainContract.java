@@ -22,6 +22,6 @@ public interface MainContract {
 
         void detachView();
 
-        void loadItems(Context context, boolean isClear);
+        void loadItems(Context context, boolean isClear, String num);
     }
 }

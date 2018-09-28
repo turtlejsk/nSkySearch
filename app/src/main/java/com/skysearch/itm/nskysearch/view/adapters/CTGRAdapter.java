@@ -13,26 +13,31 @@ import com.skysearch.itm.nskysearch.R;
 import com.skysearch.itm.nskysearch.data.dto.DTO_CH;
 import com.skysearch.itm.nskysearch.data.dto.DTO_CH_CTGR;
 import com.skysearch.itm.nskysearch.listener.OnItemClickListener;
-import com.skysearch.itm.nskysearch.view.adapters.contracts.ChannelAdapterContract;
+import com.skysearch.itm.nskysearch.view.adapters.contracts.CTGRAdapterContract;
 import com.skysearch.itm.nskysearch.view.adapters.fragments.ContainerFragment;
 import com.skysearch.itm.nskysearch.view.adapters.holders.CTGRViewHolder;
 
 import java.util.ArrayList;
 
-public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements ChannelAdapterContract.Model, ChannelAdapterContract.View{
+public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements CTGRAdapterContract.Model, CTGRAdapterContract.View{
     public Context context;
     private LayoutInflater mInflator;
-    private ArrayList<DTO_CH> items;
     private ArrayList<DTO_CH_CTGR> ctgrs;
     public final String TAG = "CTGRAdapter";
 
     public OnItemClickListener onItemClickListener;
     public ContainerFragment.ChangeCategoryCallback mCallback;
-
+    public ContainerFragment.ChangeViewCallback mChangeViewCallback;
     public CTGRAdapter(Context context, ContainerFragment.ChangeCategoryCallback callback){
         this.context = context;
         this.mCallback = callback;
     }
+    public CTGRAdapter(Context context, ContainerFragment.ChangeViewCallback callback){
+        this.context = context;
+        this.mChangeViewCallback = callback;
+    }
+
+
 
     @NonNull
     @Override
@@ -48,35 +53,28 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
 
 
         holder.ctgr_name.setText(ctgrs.get(position).getCH_CTGR());
-        holder.ctgr_image.setImageResource(R.drawable.skylife);
-        holder.ctgr_image.setOnClickListener(new View.OnClickListener() {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String type = "";
-
-                switch (position) {
-                    case 0:
-                        type = "SAMPLE1";
-                        break;
-                    case 1:
-                        type = "SAMPLE2";
-                        break;
-                    default:
-                        type = "SAMPLE1";
-                        break;
-                }
-
-                ContainerFragment.CHANNEL_CATEGORY category;
-                category = ContainerFragment.CHANNEL_CATEGORY.valueOf(type);
-
-                mCallback.onSelectCategory(category);
-
+                String type = ctgrs.get(position).getCH_CTGR();
+                //ContainerFragment.CHANNEL_CATEGORY category;
+                Log.d(TAG, "onClick::type "+type);
+                //category = ContainerFragment.CHANNEL_CATEGORY.valueOf(type);
+                //Log.d(TAG, "onClick:category "+category);
+                // mCallback.onSelectCategory(type);
+                ContainerFragment.ViewType viewType;
+                viewType = ContainerFragment.ViewType.valueOf("CTGR");
+                mChangeViewCallback.changeView(ContainerFragment.ViewType.valueOf("CTGR"), type);
             }
         });
     }
 
     @Override
     public int getItemCount() {
+        if(ctgrs==null){
+            return 0;
+        }
         return ctgrs.size();
     }
 
@@ -92,10 +90,6 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
         notifyDataSetChanged();
     }
 
-    @Override
-    public void addItems(ArrayList<DTO_CH> items) {
-        this.items = items;
-    }
 
     @Override
     public void addCTGRs(ArrayList<DTO_CH_CTGR> ctgrs) {
@@ -110,8 +104,8 @@ public class CTGRAdapter extends RecyclerView.Adapter<CTGRViewHolder> implements
     }
 
     @Override
-    public DTO_CH getListingItem(int position) {
-        return null;
+    public DTO_CH_CTGR getListingItem(int position) {
+        return this.ctgrs.get(position);
     }
 
 
