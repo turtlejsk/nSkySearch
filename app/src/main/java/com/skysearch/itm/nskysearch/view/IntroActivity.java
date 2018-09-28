@@ -119,5 +119,4 @@ public class IntroActivity extends AppCompatActivity{
         bottomNavigation.addItems(list);
     }
 
-
 }
