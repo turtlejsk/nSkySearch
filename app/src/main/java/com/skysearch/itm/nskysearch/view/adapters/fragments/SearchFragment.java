@@ -3,14 +3,11 @@ package com.skysearch.itm.nskysearch.view.adapters.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,9 +20,6 @@ import com.skysearch.itm.nskysearch.Presenter.SearchContract;
 import com.skysearch.itm.nskysearch.Presenter.SearchPresenter;
 import com.skysearch.itm.nskysearch.R;
 import com.skysearch.itm.nskysearch.view.adapters.SearchAdapter;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SearchFragment extends Fragment implements SearchContract.View, SearchView.OnQueryTextListener{
 //        @BindView(R.id.appbar_default)
@@ -81,6 +75,7 @@ public class SearchFragment extends Fragment implements SearchContract.View, Sea
         mPresenter.attachView(this);
         mPresenter.setListingAdapterModel(searchAdapter);
         mPresenter.setListingAdapterView(searchAdapter);
+
         //mPresenter.loadItems();
         return rootView;
     }
