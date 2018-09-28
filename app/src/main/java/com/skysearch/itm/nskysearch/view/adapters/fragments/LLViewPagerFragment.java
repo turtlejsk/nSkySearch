@@ -1,36 +1,23 @@
 package com.skysearch.itm.nskysearch.view.adapters.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.skysearch.itm.nskysearch.Presenter.MainContract;
 import com.skysearch.itm.nskysearch.Presenter.Presenter;
 import com.skysearch.itm.nskysearch.R;
 import com.skysearch.itm.nskysearch.view.adapters.DividerDecoration;
-import com.skysearch.itm.nskysearch.view.adapters.GridListingAdapter;
 import com.skysearch.itm.nskysearch.view.adapters.ListListingAdapter;
 import com.squareup.picasso.Picasso;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 @SuppressLint("ValidFragment")
 public class LLViewPagerFragment extends Fragment implements MainContract.View{
@@ -76,7 +63,10 @@ public class LLViewPagerFragment extends Fragment implements MainContract.View{
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.pager_child, container,false);
         Log.i("LLViewPagerFragment","rootView : "+rootView.toString());
         ImageView ch_image = (ImageView)rootView.findViewById(R.id.listing_image);
-        Picasso.get().load(url).into(ch_image);
+
+        if (!url.isEmpty()) {
+            Picasso.get().load(url).into(ch_image);
+        }
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
 
         recyclerView.setNestedScrollingEnabled(true);
