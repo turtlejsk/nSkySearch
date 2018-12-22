@@ -1,6 +1,7 @@
 package com.skysearch.itm.nskysearch.view.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> impl
 
     public Context context;
     ContainerFragment.ChangeChannelCallback mCallback;
-    public final String TAG = "ChannelAdapter";
+    public static final String TAG = "ChannelAdapter";
     public int count = 0;
     public OnItemClickListener onItemClickListener;
 
@@ -40,7 +41,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> impl
     @NonNull
     @Override
     public ChannelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(TAG, "onCreateViewHolder: ");
+        Log.i(TAG , "onCreateViewHolder: ");
         View view = LayoutInflater.from(context).inflate(R.layout.channel_item, parent, false);
         ChannelViewHolder result = new ChannelViewHolder(view);
         return result;
@@ -48,23 +49,69 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> impl
 
     @Override
     public void onBindViewHolder(@NonNull ChannelViewHolder holder, final int position) {
-
-        holder.channel_name.setText(items.get(position).getCH_NAME());
-        holder.prog_air.setText(items.get(position).getAir());
+        String num = String.valueOf(items.get(position).getCH_NUM());
+        String ch_name = items.get(position).getCH_NAME();
+        Log.d(TAG, "onBindViewHolder: "+num);
+        Log.d(TAG, "onBindViewHolder: "+ch_name);
 
         final String ch_image_url = items.get(position).getCH_DESCR();
-        final ImageView ch_image = holder.channel_image;
-        Picasso.get().load(ch_image_url).into(ch_image);
+        ImageView ch_image = holder.channel_image;
+        int hardcode_image = hardcode(ch_name);
+        Log.d(TAG, "onBindViewHolder: hardcode_image: "+hardcode_image);
+
+        if(hardcode_image==-1){
+            Picasso.get().load(ch_image_url).into(ch_image);
+        }else{
+            ch_image.setImageResource(hardcode_image);
+        }
+
+        String air = items.get(position).getAir();
+        holder.channel_name.setText(num+". "+ch_name);
+        holder.prog_air.setText(air);
+
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 int type = items.get(position).getsRef();
                 Log.d(TAG, "onClick: "+type);
-
-                mCallback.onSelectChannel(type,ch_image_url);
+                mCallback.onSelectChannel(type, ch_image_url);
             }
         });
+    }
+
+    public static int hardcode(String ch_name) {
+        Log.d(TAG, "hardcode: "+ch_name);
+        int result = -1;
+        switch (ch_name){
+            case "KBS2":
+                result = R.drawable.kbs2_live;
+                break;
+            case "KBS1":
+                result =  R.drawable.kbs1_live;
+                break;
+            case "SBS":
+                result =  R.drawable.sbs_live;
+                break;
+            case "MBC":
+                result =  R.drawable.mbc_live;
+                break;
+            case "채널A":
+                result =  R.drawable.channela_live;
+                break;
+            case "MBN":
+                result =  R.drawable.mbn_live;
+                break;
+            case "JTBC":
+                result =  R.drawable.jtbc_live;
+                break;
+            case "EBS":
+                result =  R.drawable.ebs_live;
+                break;
+        }
+        return result;
     }
 
     @Override
@@ -99,14 +146,17 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> impl
     }
 
     @Override
-    public void addAirs(ArrayList<DTO_SCHD> airs ){
-        this.items.get(count).setAir(airs.get(0).getTitle());
-        count++;
+    public void addAirs(ArrayList<DTO_SCHD> airs){
+        if (airs != null || airs.size() !=0) {
+            this.items.get(airs.size()-count-1).setAir(airs.get(0).getTitle());
+            count++;
+        }
     }
 
     @Override
     public void clearItem() {
         this.items = null;
+        count = 0;
     }
 
     @Override
