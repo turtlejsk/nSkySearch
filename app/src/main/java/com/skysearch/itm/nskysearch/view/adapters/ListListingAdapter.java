@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +35,7 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ListingAdapterContract.Model, ListingAdapterContract.View, StickyRecyclerHeadersAdapter<HeaderHolder> {
 
-
-
-    public ArrayList<DTO_SCHD> items = new ArrayList<DTO_SCHD>();
+    public ArrayList<DTO_SCHD> items;
     public Context context;
     public OnItemClickListener onItemClickListener;
     private int[] mSectionIndices;
@@ -47,6 +46,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public ListListingAdapter(Context context){
         this.context = context;
+        items = new ArrayList<DTO_SCHD>();
     }
 
     @NonNull
@@ -56,8 +56,8 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         View view;
         RecyclerView.ViewHolder result =null;
-        Log.d(TAG, "onCreateViewHolder::position : "+parent.getChildCount());
-        Log.d(TAG, "onCreateViewHolder::type : "+viewType);
+//        Log.d(TAG, "onCreateViewHolder::position : "+parent.getChildCount());
+//        Log.d(TAG, "onCreateViewHolder::type : "+viewType);
         switch (viewType){
             case ITEM_VIEW_TYPE_FUTURE:
                 view = LayoutInflater.from(context).inflate(R.layout.list_item_future, parent,false);
@@ -73,8 +73,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 break;
 
         }
-
-        Log.d("ListListingAdapter","onCreateViewHolder");
+   //     Log.d("ListListingAdapter","onCreateViewHolder");
         return result;
     }
 
@@ -84,24 +83,25 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         *  현재 제목+프로그램 사진
         * */
         int type = items.get(position).getType();
-        Log.d(TAG, "onBindViewHolder:: position : "+position);
-        Log.d(TAG, "onBindViewHolder::type : "+type);
+//        Log.d(TAG, "onBindViewHolder: "+holder.toString());
+//        Log.d(TAG, "onBindViewHolder:: position : "+position);
+//        Log.d(TAG, "onBindViewHolder::type : "+type);
         switch (type) {
             case ITEM_VIEW_TYPE_FUTURE :
                 final FutureListingHolder holder_future = (FutureListingHolder) holder;
-                holder_future.titleText_future.setText(getItem(position).getTitle());
-                holder_future.timeText_future.setText(getItem(position).getStTime().substring(11,16));
+                holder_future.titleText_future.setText(getListingItem(position).getTitle());
+                holder_future.timeText_future.setText(getListingItem(position).getStTime().substring(11,16));
                 holder_future.reserveButton.setOnClickListener(new Button.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        if (getItem(position).isReserved()) {
+                        if (getListingItem(position).isReserved()) {
                             holder_future.reserveButton.setBackgroundResource(R.drawable.reserve_off);
-                            getItem(position).setReserved(false);
+                            getListingItem(position).setReserved(false);
                             Toast.makeText(context, "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         holder_future.reserveButton.setBackgroundResource(R.drawable.reserve_on);
-                        getItem(position).setReserved(true);
+                        getListingItem(position).setReserved(true);
                         Toast.makeText(context, "예약이 설정되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -109,13 +109,13 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             case ITEM_VIEW_TYPE_NOW :
                 ListListingHolder holder_now = (ListListingHolder) holder;
-                holder_now.titleText_now.setText(getItem(position).getTitle());
+                holder_now.titleText_now.setText(getListingItem(position).getTitle());
                 break;
 
             case ITEM_VIEW_TYPE_PAST:
                 PastListingHolder holder_past = (PastListingHolder)holder;
-                holder_past.titleText_past.setText(getItem(position).getTitle());
-                holder_past.timeText_past.setText(getItem(position).getStTime().substring(11,16));
+                holder_past.titleText_past.setText(getListingItem(position).getTitle());
+                holder_past.timeText_past.setText(getListingItem(position).getStTime().substring(11,16));
                 break;
 
         }
@@ -133,7 +133,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position){
-        return getItem(position).getType();
+        return getListingItem(position).getType();
     }
 
     @Override
@@ -161,7 +161,9 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        //return items != null ? items.size() : 0;
+        if(items==null){
+            return 0;
+        }
         return items.size();
     }
 
@@ -199,7 +201,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public DTO_SCHD getItem(int position) {
+    public DTO_SCHD getListingItem(int position) {
         return items.get(position);
     }
 
@@ -228,5 +230,7 @@ public class ListListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         return dates;
     }
+
+
 
 }

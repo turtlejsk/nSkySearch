@@ -1,24 +1,26 @@
 package com.skysearch.itm.nskysearch.view.adapters.contracts;
 
-import com.skysearch.itm.nskysearch.data.ListingItem;
+import com.skysearch.itm.nskysearch.data.dto.DTO_CH;
 import com.skysearch.itm.nskysearch.data.dto.DTO_SCHD;
 import com.skysearch.itm.nskysearch.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
-public interface ListingAdapterContract {
-
+public interface ChannelAdapterContract {
     interface View {
+
         void setOnClickListner(OnItemClickListener clickListner);
         void notifyAdapter();
+
     }
 
     interface Model {
 
-        void addItems(ArrayList<DTO_SCHD> items);
-
+        void addItems(ArrayList<DTO_CH> items);
+        void addAirs(ArrayList<DTO_SCHD> airs);
         void clearItem();
 
-        DTO_SCHD getListingItem(int position);
+        DTO_CH getListingItem(int position);
+        int getItemSize();
     }
 }

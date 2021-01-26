@@ -85,7 +85,7 @@ public class GridListingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public DTO_SCHD getItem(int position) {
+    public DTO_SCHD getListingItem(int position) {
         return items.get(position);
     }
 

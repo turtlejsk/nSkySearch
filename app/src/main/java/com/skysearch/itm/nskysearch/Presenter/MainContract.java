@@ -10,7 +10,6 @@ public interface MainContract {
     interface View {
 
         void showToast(String title);
-
     }
 
     interface Presenter{
@@ -23,6 +22,6 @@ public interface MainContract {
 
         void detachView();
 
-        void loadItems(Context context, boolean isClear);
+        void loadItems(Context context, boolean isClear, String num);
     }
 }
